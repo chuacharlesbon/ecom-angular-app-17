@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+main {
+    min-height: 100vh;
+}
+
+.main-body {
+    min-height: 100vh;
+}
+
+.main-nav {
+    height: 80px;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.button-main {
+    color: white;
+    background-color: orange;
+    border: orange solid 3px;
+    transition-duration: 700ms;
+}
+
+.button-main:hover {
+    color: orange;
+    background-color: white;
+    border: orange solid 3px;
+}
+
+.button-sub {
+    transition-duration: 700ms;
+}
+
+.button-sub:hover {
+    color: orange;
+    border-bottom: orange solid 4px;
+}
+
+@keyframes fadeLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(-10%, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+}
+
+.fade-from-left {
+    animation: fadeLeft 0.7s ease-in both;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
