@@ -1,4 +1,8 @@
-<div class="p-4">
-    <img class="rounded" [src]="productData.images![0]" style="width: 250px; height: 250px; background-color: white;"/>
-    <p class="py-2 text-warning">{{ productData.title }}</p>
+<div class="px-4 bg-white rounded">
+    <img class="rounded img-fluid" [src]="productData.images![0]" style="background-color: white;"/>
+    <hr class="py-2"/>
+    <p class="my-0">{{ productData.title }}</p>
+    <p class="my-0">PHP {{ productData.price }}</p>
+    <p class="my-1 text-secondary" style="font-size: 12px;">{{ productData.description?.substring(0, 75) }} ...</p>
+    <a class="py-4 d-block" [routerLink]="[productsLink, productData.id]">View details >></a>
 </div>

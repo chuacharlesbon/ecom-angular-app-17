@@ -3,11 +3,13 @@ import { Product } from '../myinterfaces/products';
 import { ProductsService } from '../myservices/products.service';
 import { ProductCardsComponent } from '../mywidgets/product-cards/product-cards.component';
 import { CommonModule } from '@angular/common';
+import { routeNames } from '../app.routes';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home-component',
   standalone: true,
-  imports: [CommonModule, ProductCardsComponent],
+  imports: [CommonModule, RouterModule, ProductCardsComponent],
   templateUrl: './home-component.component.html',
   styleUrl: './home-component.component.css'
 })
@@ -39,6 +41,7 @@ export class HomeComponentComponent {
   productsList: Product[] = [];
   productsService: ProductsService = inject(ProductsService);
   loading: boolean = true;
+  productsLink = `/${routeNames.product.path}`;
 
   constructor() {
     this.currentDate = this.currentDate;
@@ -47,6 +50,12 @@ export class HomeComponentComponent {
   }
 
   async ngOnInit() {
+    // const tempProductList = await this.productsService.getAllProductsSampleFeatured();
+    // this.productsList = tempProductList.products ?? [];
+    // this.loading = false; // done loading
+  }
+
+  async ngAfterViewInit() {
     const tempProductList = await this.productsService.getAllProductsSampleFeatured();
     this.productsList = tempProductList.products ?? [];
     this.loading = false; // done loading

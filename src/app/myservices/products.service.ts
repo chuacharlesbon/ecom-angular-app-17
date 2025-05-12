@@ -22,6 +22,7 @@ export class ProductsService {
 
   async getAllProductsSampleFeatured(): Promise<ProductsModel> {
     try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
       const data = await fetch(`${this.url}/products?limit=6&skip=0`);
       return await data.json();
     } catch (e) {

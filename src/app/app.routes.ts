@@ -13,6 +13,11 @@ export const routeNames = {
         title: "Products",
         component: ProductsComponent,
     },
+    productDetails: {
+        path: 'products/:id',
+        title: "Product Info",
+        component: ProductsComponent,
+    },
 };
 
 export const routes: Routes = [
@@ -25,5 +30,10 @@ export const routes: Routes = [
         path: routeNames.product.path,
         component: routeNames.product.component,
         title: `SHOPNetwork PH | ${routeNames.product.title}`,
+    },
+    {
+        path: routeNames.productDetails.path,
+        component: routeNames.productDetails.component,
+        title: `SHOPNetwork PH | ${routeNames.productDetails.title}`,
     },
 ];
