@@ -36,7 +36,15 @@
                         routerLink="/booking">See locations</a>
                 </div>
             </div>
+        </div>
 
+        <div class="p-4 row align-items-center justify-content-center">
+            <div class="col-12 col-md-5 col-lg-3" *ngFor="let productData of productsList">
+                <app-product-cards [productData]="productData"></app-product-cards>
+            </div>
+        </div>
+
+        <div class="p-4">
             <div style="height:20px;"></div>
             <p class="fs-3 text-white">Visit our Physical Stores</p>
             <div class="row align-items-start justify-content-center px-0">
@@ -64,7 +72,6 @@
                 </div>
 
             </div>
-
         </div>
     </div>
     <div class="col-12 col-lg-4 col-xxl-3 text-center px-4">

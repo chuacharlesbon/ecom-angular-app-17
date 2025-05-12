@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Product } from '../myinterfaces/products';
+import { ProductsService } from '../myservices/products.service';
+import { ProductCardsComponent } from '../mywidgets/product-cards/product-cards.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home-component',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ProductCardsComponent],
   templateUrl: './home-component.component.html',
   styleUrl: './home-component.component.css'
 })
 export class HomeComponentComponent {
+  
+  // Sample Calendar Display
   newDate = new Date();
   currentDate = this.newDate.getDate().toString();
   currentMonth = this.newDate.getMonth();
@@ -29,9 +35,20 @@ export class HomeComponentComponent {
     'December',
   ];
 
+  // Products
+  productsList: Product[] = [];
+  productsService: ProductsService = inject(ProductsService);
+  loading: boolean = true;
+
   constructor() {
     this.currentDate = this.currentDate;
     this.currentYear = this.currentYear;
     this.newMonth = (this.months[this.currentMonth]).toString();
+  }
+
+  async ngOnInit() {
+    const tempProductList = await this.productsService.getAllProductsSampleFeatured();
+    this.productsList = tempProductList.products ?? [];
+    this.loading = false; // done loading
   }
 }
