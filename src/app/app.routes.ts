@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponentComponent } from './home-component/home-component.component';
 import { ProductsComponent } from './products/products.component';
+import { BlogsComponent } from './blogs/blogs.component';
+import { ProductsDetailsComponent } from './products-details/products-details.component';
+import { BlogsDetailsComponent } from './blogs-details/blogs-details.component';
 
 export const routeNames = {
     home: {
@@ -16,7 +19,17 @@ export const routeNames = {
     productDetails: {
         path: 'products/:id',
         title: "Product Info",
-        component: ProductsComponent,
+        component: ProductsDetailsComponent,
+    },
+    blog: {
+        path: 'blogs',
+        title: "Blogs",
+        component: BlogsComponent,
+    },
+    blogDetails: {
+        path: 'blogs/:id',
+        title: "Blog Info",
+        component: BlogsDetailsComponent,
     },
 };
 
@@ -35,5 +48,15 @@ export const routes: Routes = [
         path: routeNames.productDetails.path,
         component: routeNames.productDetails.component,
         title: `SHOPNetwork PH | ${routeNames.productDetails.title}`,
+    },
+    {
+        path: routeNames.blog.path,
+        component: routeNames.blog.component,
+        title: `SHOPNetwork PH | ${routeNames.blog.title}`,
+    },
+    {
+        path: routeNames.blogDetails.path,
+        component: routeNames.blogDetails.component,
+        title: `SHOPNetwork PH | ${routeNames.blogDetails.title}`,
     },
 ];

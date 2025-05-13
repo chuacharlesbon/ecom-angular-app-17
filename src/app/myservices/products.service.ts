@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductsModel } from '../myinterfaces/products';
+import { Product, ProductsModel } from '../myinterfaces/products';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,7 @@ export class ProductsService {
 
   url = "https://dummyjson.com";
   defaultProductData: ProductsModel = {};
+  defaultSingleProductData: Product = {};
 
   async getAllProducts(): Promise<ProductsModel> {
     try {
@@ -27,6 +28,15 @@ export class ProductsService {
       return await data.json();
     } catch (e) {
       return this.defaultProductData;
+    }
+  }
+
+  async getProductById(id: number): Promise<Product> {
+    try {
+      const data = await fetch(`${this.url}/products/${id}`);
+      return await data.json();
+    } catch (e) {
+      return this.defaultSingleProductData;
     }
   }
 }

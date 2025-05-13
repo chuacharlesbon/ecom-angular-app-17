@@ -5,11 +5,14 @@ import { ProductCardsComponent } from '../mywidgets/product-cards/product-cards.
 import { CommonModule } from '@angular/common';
 import { routeNames } from '../app.routes';
 import { RouterModule } from '@angular/router';
+import { BlogsService } from '../myservices/blogs.service';
+import { BlogsCardsComponent } from "../mywidgets/blogs-cards/blogs-cards.component";
+import { BlogsModel } from '../myinterfaces/blogs';
 
 @Component({
   selector: 'app-home-component',
   standalone: true,
-  imports: [CommonModule, RouterModule, ProductCardsComponent],
+  imports: [CommonModule, RouterModule, ProductCardsComponent, BlogsCardsComponent],
   templateUrl: './home-component.component.html',
   styleUrl: './home-component.component.css'
 })
@@ -43,6 +46,12 @@ export class HomeComponentComponent {
   loading: boolean = true;
   productsLink = `/${routeNames.product.path}`;
 
+  // Blogs
+  blogsList: BlogsModel[] = [];
+  blogsService: BlogsService = inject(BlogsService);
+  loadingBlog: boolean = true;
+  blogsLink = `/${routeNames.blog.path}`;
+
   constructor() {
     this.currentDate = this.currentDate;
     this.currentYear = this.currentYear;
@@ -59,5 +68,9 @@ export class HomeComponentComponent {
     const tempProductList = await this.productsService.getAllProductsSampleFeatured();
     this.productsList = tempProductList.products ?? [];
     this.loading = false; // done loading
+
+    const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
+    this.blogsList = tempBlogList ?? [];
+    this.loadingBlog = false; // done loading
   }
 }

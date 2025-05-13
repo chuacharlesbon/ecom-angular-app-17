@@ -86,15 +86,18 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-4 col-xxl-3 text-center px-4">
-        <div class="fade-from-left w-100 bg-white my-4" style="height: 300px">
-
+    <div class="col-12 col-lg-4 col-xxl-3 p-4">
+        <p class="fs-3 text-warning">News Today</p>
+        <div *ngIf="loadingBlog" class="py-4">
+            <p class="text-white">Loading blogs...</p>
         </div>
-        <div class="fade-from-left w-100 bg-white my-4" style="height: 300px">
-
+        <div *ngIf="!loadingBlog && blogsList.length === 0" class="py-5">
+            <p class="text-white">No blogs found.</p>
         </div>
-        <div class="fade-from-left w-100 bg-white my-4" style="height: 300px">
-
+        <div *ngIf="!loadingBlog && blogsList.length !== 0">
+            <div class="fade-from-left w-100 bg-white my-4" *ngFor="let blogData of blogsList" style="height: 300px">
+                <app-blogs-cards [blogData]="blogData"></app-blogs-cards>
+            </div>
         </div>
     </div>
 </div>

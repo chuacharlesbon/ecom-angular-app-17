@@ -1,0 +1,7 @@
+<div class="p-4 bg-white rounded">
+    <img class="rounded img-fluid object-fit-cover" [src]="blogData.cover_image" style="background-color: white; height: 200px;"/>
+    <hr class="py-2"/>
+    <p class="my-0">{{ blogData.title }}</p>
+    <p class="my-1 text-secondary" style="font-size: 12px;">{{ blogData.description?.substring(0, 75) }} ...</p>
+    <a class="my-1 d-block" [routerLink]="[blogsLink, blogData.id]">View details >></a>
+</div>

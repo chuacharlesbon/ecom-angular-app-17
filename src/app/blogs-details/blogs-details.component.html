@@ -1,0 +1,32 @@
+<div class="row align-items-start justify-content-center p-0 m-0">
+    <div class="col-12 col-lg-8 col-xxl-9 p-4">
+        <p class="fs-3 text-warning">{{ blogData?.title }}</p>
+        <div class="row align-items-start justify-content-start p-0 m-0">
+            <div class="col-12">
+                <img class="bg-white img-fluid rounded object-fit-cover w-100" [src]="blogData?.cover_image" style="height: 350px;"/>
+            </div>
+        </div>
+        <div class="p-2"></div>
+        <p class="my-2 fs-4 text-white">BLOG CONTENT</p>
+        <p class="my-2 text-white">{{ blogData?.description }} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis faucibus,
+            nunc ac convallis tristique, turpis arcu hendrerit nulla, nec rutrum orci massa ac lectus. Maecenas
+            ornare convallis lectus a varius. Proin congue mi sit amet nisl volutpat, dictum faucibus diam
+            suscipit.</p>
+        <p class="my-2 fs-4 text-white">PUBLISHED</p>
+        <p class="my-2 text-white">{{ blogData?.readable_publish_date }}</p>
+    </div>
+    <div class="col-12 col-lg-4 col-xxl-3 p-4">
+        <p class="fs-3 text-warning">News Today</p>
+        <div *ngIf="loadingBlog" class="py-4">
+            <p class="text-white">Loading blogs...</p>
+        </div>
+        <div *ngIf="!loadingBlog && blogsList.length === 0" class="py-5">
+            <p class="text-white">No blogs found.</p>
+        </div>
+        <div *ngIf="!loadingBlog && blogsList.length !== 0">
+            <div class="fade-from-left w-100 bg-white my-4" *ngFor="let blogData of blogsList" style="height: 300px">
+                <app-blogs-cards [blogData]="blogData"></app-blogs-cards>
+            </div>
+        </div>
+    </div>
+</div>
