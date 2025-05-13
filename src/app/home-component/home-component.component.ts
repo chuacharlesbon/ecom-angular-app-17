@@ -65,6 +65,8 @@ export class HomeComponentComponent {
   }
 
   async ngAfterViewInit() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     const tempProductList = await this.productsService.getAllProductsSampleFeatured();
     this.productsList = tempProductList.products ?? [];
     this.loading = false; // done loading

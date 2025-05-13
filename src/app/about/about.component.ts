@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './about.component.css'
 })
 export class AboutComponent {
-
+  async ngAfterViewInit() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

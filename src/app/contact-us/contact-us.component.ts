@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './contact-us.component.css'
 })
 export class ContactUsComponent {
-
+  async ngAfterViewInit() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

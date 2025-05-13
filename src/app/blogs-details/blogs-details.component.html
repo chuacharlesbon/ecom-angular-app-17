@@ -24,9 +24,10 @@
             <p class="text-white">No blogs found.</p>
         </div>
         <div *ngIf="!loadingBlog && blogsList.length !== 0">
-            <div class="fade-from-left w-100 bg-white my-4" *ngFor="let blogData of blogsList" style="height: 300px">
+            <div class="fade-from-left w-100 bg-white my-4" *ngFor="let blogData of blogsList">
                 <app-blogs-cards [blogData]="blogData"></app-blogs-cards>
             </div>
         </div>
+        <a class="d-block p-2 my-4 mr-auto fs-6 fw-bold button-main rounded text-decoration-none text-center" [routerLink]="[blogsLink]" style="width: 150px;">More News</a>
     </div>
 </div>
