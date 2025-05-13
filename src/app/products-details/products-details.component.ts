@@ -7,6 +7,7 @@ import { BlogsService } from '../myservices/blogs.service';
 import { routeNames } from '../app.routes';
 import { BlogsCardsComponent } from '../mywidgets/blogs-cards/blogs-cards.component';
 import { CommonModule } from '@angular/common';
+import { BlogsStore } from '../mystores/blogs.store';
 
 @Component({
   selector: 'app-products-details',
@@ -21,9 +22,10 @@ export class ProductsDetailsComponent {
   productData: Product | undefined;
 
   // Blogs
-  blogsList: BlogsModel[] = [];
+  blogsStore = inject(BlogsStore);
+  blogsList = this.blogsStore.blogs$;
+  loadingBlog = this.blogsStore.loading$;
   blogsService: BlogsService = inject(BlogsService);
-  loadingBlog: boolean = true;
   blogsLink = `/${routeNames.blog.path}`;
 
   constructor() {
@@ -33,10 +35,17 @@ export class ProductsDetailsComponent {
     });
   }
 
+  async ngOnInit() {
+    // Load Blogs if empty
+    if (this.blogsStore.getBlogsSnapshot().length === 0) {
+      this.blogsStore.loadBlogs();
+    }
+  }
+
   async ngAfterViewInit() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
-    this.blogsList = tempBlogList ?? [];
-    this.loadingBlog = false; // done loading
+    // const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
+    // this.blogsList = tempBlogList ?? [];
+    // this.loadingBlog = false; // done loading
   }
 }

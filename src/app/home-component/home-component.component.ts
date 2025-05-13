@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { BlogsService } from '../myservices/blogs.service';
 import { BlogsCardsComponent } from "../mywidgets/blogs-cards/blogs-cards.component";
 import { BlogsModel } from '../myinterfaces/blogs';
+import { BlogsStore } from '../mystores/blogs.store';
+import { ProductsStore } from '../mystores/products.store';
 
 @Component({
   selector: 'app-home-component',
@@ -17,7 +19,7 @@ import { BlogsModel } from '../myinterfaces/blogs';
   styleUrl: './home-component.component.css'
 })
 export class HomeComponentComponent {
-  
+
   // Sample Calendar Display
   newDate = new Date();
   currentDate = this.newDate.getDate().toString();
@@ -41,15 +43,17 @@ export class HomeComponentComponent {
   ];
 
   // Products
-  productsList: Product[] = [];
+  productsStore = inject(ProductsStore);
+  productsList = this.productsStore.products$;
+  loading = this.productsStore.loading$;
   productsService: ProductsService = inject(ProductsService);
-  loading: boolean = true;
   productsLink = `/${routeNames.product.path}`;
 
   // Blogs
-  blogsList: BlogsModel[] = [];
+  blogsStore = inject(BlogsStore);
+  blogsList = this.blogsStore.blogs$;
+  loadingBlog = this.blogsStore.loading$;
   blogsService: BlogsService = inject(BlogsService);
-  loadingBlog: boolean = true;
   blogsLink = `/${routeNames.blog.path}`;
 
   constructor() {
@@ -59,20 +63,26 @@ export class HomeComponentComponent {
   }
 
   async ngOnInit() {
-    // const tempProductList = await this.productsService.getAllProductsSampleFeatured();
-    // this.productsList = tempProductList.products ?? [];
-    // this.loading = false; // done loading
+    // Load Products if empty
+    if (this.productsStore.getProductsSnapshot().length === 0) {
+      this.productsStore.loadProducts();
+    }
+
+    // Load Blogs if empty
+    if (this.blogsStore.getBlogsSnapshot().length === 0) {
+      this.blogsStore.loadBlogs();
+    }
   }
 
   async ngAfterViewInit() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    const tempProductList = await this.productsService.getAllProductsSampleFeatured();
-    this.productsList = tempProductList.products ?? [];
-    this.loading = false; // done loading
 
-    const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
-    this.blogsList = tempBlogList ?? [];
-    this.loadingBlog = false; // done loading
+    // const tempProductList = await this.productsService.getAllProductsSampleFeatured();
+    // this.productsList = tempProductList.products ?? [];
+    // this.loading = false; // done loading
+
+    // const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
+    // this.blogsList = tempBlogList ?? [];
+    // this.loadingBlog = false; // done loading
   }
 }

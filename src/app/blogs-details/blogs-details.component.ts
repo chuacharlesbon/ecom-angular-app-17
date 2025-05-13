@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BlogsCardsComponent } from '../mywidgets/blogs-cards/blogs-cards.component';
 import { Subscription } from 'rxjs';
+import { BlogsStore } from '../mystores/blogs.store';
 
 @Component({
   selector: 'app-blogs-details',
@@ -20,9 +21,10 @@ export class BlogsDetailsComponent {
 
   // Blogs
   blogData: BlogsModel | undefined;
-  blogsList: BlogsModel[] = [];
+  blogsStore = inject(BlogsStore);
+  blogsList = this.blogsStore.blogs$;
+  loadingBlog = this.blogsStore.loading$;
   blogsService: BlogsService = inject(BlogsService);
-  loadingBlog: boolean = true;
   blogsLink = `/${routeNames.blog.path}`;
 
   constructor() {
@@ -39,11 +41,17 @@ export class BlogsDetailsComponent {
     // });
   }
 
-  async ngAfterViewInit() {
+  async ngOnInit() {
+    // Load Blogs if empty
+    if (this.blogsStore.getBlogsSnapshot().length === 0) {
+      this.blogsStore.loadBlogs();
+    }
+  }
 
-    const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
-    this.blogsList = tempBlogList ?? [];
-    this.loadingBlog = false; // done loading
+  async ngAfterViewInit() {
+    // const tempBlogList = await this.blogsService.getAllBlogsSampleFeatured();
+    // this.blogsList = tempBlogList ?? [];
+    // this.loadingBlog = false; // done loading
   }
 
   ngOnDestroy(): void {
