@@ -15,4 +15,6 @@ export class AppComponent {
   title = 'ecom-angular-app-17';
   
   productsLink = `/${routeNames.product.path}`;
+  aboutUsLink = `/${routeNames.about.path}`;
+  contactUsLink = `/${routeNames.contact.path}`;
 }

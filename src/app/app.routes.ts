@@ -4,6 +4,8 @@ import { ProductsComponent } from './products/products.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { ProductsDetailsComponent } from './products-details/products-details.component';
 import { BlogsDetailsComponent } from './blogs-details/blogs-details.component';
+import { AboutComponent } from './about/about.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 export const routeNames = {
     home: {
@@ -30,6 +32,16 @@ export const routeNames = {
         path: 'blogs/:id',
         title: "Blog Info",
         component: BlogsDetailsComponent,
+    },
+    about: {
+        path: 'about-us',
+        title: "About Us",
+        component: AboutComponent,
+    },
+    contact: {
+        path: 'contact-us',
+        title: "Contact Us",
+        component: ContactUsComponent,
     },
 };
 
@@ -58,5 +70,15 @@ export const routes: Routes = [
         path: routeNames.blogDetails.path,
         component: routeNames.blogDetails.component,
         title: `SHOPNetwork PH | ${routeNames.blogDetails.title}`,
+    },
+    {
+        path: routeNames.about.path,
+        component: routeNames.about.component,
+        title: `SHOPNetwork PH | ${routeNames.about.title}`,
+    },
+    {
+        path: routeNames.contact.path,
+        component: routeNames.contact.component,
+        title: `SHOPNetwork PH | ${routeNames.contact.title}`,
     },
 ];
