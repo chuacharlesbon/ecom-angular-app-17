@@ -2,24 +2,41 @@
   <nav
     class="main-nav sticky-top d-flex flex-row align-items-center justify-content-between bg-dark border-bottom border-secondary px-4 px-xxl-5">
     <a class="d-flex flex-row align-items-center text-decoration-none" routerLink="/">
-      <img
-      class="rounded-full"
-      src="/assets/s-logo.png"
-      style="width: 60px; height: 60px;"
-      />
+      <img class="rounded-full" src="/assets/s-logo.png" style="width: 60px; height: 60px;" />
       <div class="d-none d-lg-block">
         <p class="fs-3 fw-bold my-0 mx-2 lh-sm" style="color: orange;">SHOP<span class="fs-6">NETWORK</span></p>
         <p class="text-white my-0 mx-2 lh-1" style="font-size: 12px;">Philippines</p>
       </div>
     </a>
     <div class="d-lg-none">
-      <mat-icon class="text-white">home</mat-icon>
+      <button class="btn btn-warning" (click)="openDrawer()"><i class="fa-solid fa-bars text-white"></i></button>
+      <ng-template #drawer let-offcanvas>
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Menu</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="">
+            <button class="d-block btn btn-warning my-2 px-4 fw-bold text-white"
+              (click)="navigateAndClose(offcanvas, productsLink)">SHOP NOW!</button>
+            <button class="d-block btn btn-white my-2 px-0 text-warning"
+              (click)="navigateAndClose(offcanvas, '/')">Home</button>
+            <button class="d-block btn btn-white my-2 px-0 text-warning"
+              (click)="navigateAndClose(offcanvas, aboutUsLink)">About</button>
+            <button class="d-block btn btn-white my-2 px-0 text-warning"
+              (click)="navigateAndClose(offcanvas, contactUsLink)">Contact</button>
+          </div>
+        </div>
+      </ng-template>
     </div>
     <div class="d-none d-lg-block">
-      <a class="py-2 px-4 mx-4 fs-6 fw-bold button-main rounded text-decoration-none" [routerLink]="[productsLink]">SHOP NOW!</a>
+      <a class="py-2 px-4 mx-4 fs-6 fw-bold button-main rounded text-decoration-none" [routerLink]="[productsLink]">SHOP
+        NOW!</a>
       <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" routerLink="/" style="color: orange;">Home</a>
-      <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" [routerLink]="[aboutUsLink]" style="color: orange;">About</a>
-      <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" [routerLink]="[contactUsLink]" style="color: orange;">Contact Us</a>
+      <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" [routerLink]="[aboutUsLink]"
+        style="color: orange;">About</a>
+      <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" [routerLink]="[contactUsLink]"
+        style="color: orange;">Contact Us</a>
     </div>
   </nav>
   <div class="main-body bg-dark">
