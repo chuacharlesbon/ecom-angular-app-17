@@ -7,11 +7,12 @@ import { Product } from '../myinterfaces/products';
 import { CheckoutModel } from '../myinterfaces/checkout';
 import { ProductsService } from '../myservices/products.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, CartCardsComponent],
+  imports: [CommonModule, CartCardsComponent, FormsModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
