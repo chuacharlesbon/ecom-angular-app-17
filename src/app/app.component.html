@@ -19,6 +19,13 @@
           <div class="">
             <button class="d-block btn btn-warning my-2 px-4 fw-bold text-white"
               (click)="navigateAndClose(offcanvas, productsLink)">SHOP NOW!</button>
+            <button class="d-block btn btn-warning my-2 px-4 fw-bold text-white"
+              (click)="navigateAndClose(offcanvas, cartLink)">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <ng-container *ngIf="(cart | async) as list">
+                <span *ngIf="list.length !== 0" class="badge rounded-full bg-danger mx-1">{{ list.length }}</span>
+              </ng-container>
+            </button>
             <button class="d-block btn btn-white my-2 px-0 text-warning"
               (click)="navigateAndClose(offcanvas, '/')">Home</button>
             <button class="d-block btn btn-white my-2 px-0 text-warning"
@@ -30,8 +37,14 @@
       </ng-template>
     </div>
     <div class="d-none d-lg-block">
-      <a class="py-2 px-4 mx-4 fs-6 fw-bold button-main rounded text-decoration-none" [routerLink]="[productsLink]">SHOP
+      <a class="btn btn-warning mx-2 px-4 fw-bold text-white" [routerLink]="[productsLink]">SHOP
         NOW!</a>
+      <a class="btn btn-warning mx-2 fw-bold text-white" [routerLink]="[cartLink]">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <ng-container *ngIf="(cart | async) as list">
+          <span *ngIf="list.length !== 0" class="badge rounded-full bg-danger mx-1">{{ list.length }}</span>
+        </ng-container>
+      </a>
       <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" routerLink="/" style="color: orange;">Home</a>
       <a class="button-sub px-2 mx-2 fs-6 text-decoration-none" [routerLink]="[aboutUsLink]"
         style="color: orange;">About</a>

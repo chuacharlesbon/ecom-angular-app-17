@@ -1,0 +1,32 @@
+<div class="row align-items-start justify-content-center p-0 m-0">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 p-4">
+        <p class="my-2 fs-4 text-white">Cart</p>
+        <hr class="text-white my-2" />
+        <ng-container *ngIf="(cart | async) as list">
+            <!-- No products -->
+            <div *ngIf="list.length === 0" class="py-5">
+                <p class="text-white text-center">Cart empty</p>
+            </div>
+            <!-- Show products -->
+            <div *ngIf="list.length !== 0" class="row align-items-start justify-content-start">
+                <div class="col-12 d-flex p-4" *ngFor="let productData of list">
+                    <app-cart-cards [productData]="productData"></app-cart-cards>
+                </div>
+            </div>
+
+            <hr *ngIf="list.length !== 0" class="text-white my-2" />
+            <div *ngIf="list.length !== 0" class="row align-items-start justify-content-between p-0 m-0">
+                <div class="col-6 p-0 m-0">
+                    <p class="fs-4 text-white">Total</p>
+                </div>
+                <div class="col-6 p-0 m-0">
+                    <p class="fs-4 text-white text-end">PHP {{ totalAmount }}</p>
+                </div>
+            </div>
+            <div *ngIf="list.length !== 0" class="row align-items-start justify-content-end p-0 m-0">
+                <button *ngIf="!loading && totalAmount > 0" class="btn btn-primary my-2 px-4 fw-bold text-white" (click)="onCheckout()" style="width: 120px;">Checkout</button>
+                <button *ngIf="loading || totalAmount === 0" class="btn btn-secondary my-2 px-4 fw-bold text-white" style="width: 120px;">Checkout</button>
+            </div>
+        </ng-container>
+    </div>
+</div>

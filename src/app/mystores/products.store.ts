@@ -15,6 +15,12 @@ export class ProductsStore {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
+  private cartSubject = new BehaviorSubject<Product[]>([]);
+  cart$ = this.cartSubject.asObservable();
+
+  private checkoutSubject = new BehaviorSubject<Product[]>([]);
+  checkout$ = this.checkoutSubject.asObservable();
+
   constructor(private productsService: ProductsService) {}
 
   async loadProducts() {
@@ -32,8 +38,32 @@ export class ProductsStore {
     this.loadingSubject.next(false);
   }
 
-  async clearSearches() {
+  clearSearches() {
     this.searchResultSubject.next([]);
+  }
+
+  addToCart(item: Product) {
+    const currentCart: Product[] = this.cartSubject.getValue();
+    if(!currentCart.includes(item)){
+      const updatedCart = [...currentCart, item];
+      this.cartSubject.next(updatedCart); 
+    }
+  }
+
+  addRemoveCheckout(item: Product) {
+    const currentCheckout = this.checkoutSubject.getValue();
+  
+    const itemExists = currentCheckout.some(product => product.id === item.id);
+  
+    const updatedCheckout = itemExists
+      ? currentCheckout.filter(product => product.id !== item.id) // remove
+      : [...currentCheckout, item]; // add
+  
+    this.checkoutSubject.next(updatedCheckout);
+  }
+
+  clearCheckout() {
+    this.checkoutSubject.next([]);
   }
 
   // Optional: for getting current value synchronously
@@ -44,5 +74,10 @@ export class ProductsStore {
   // Optional: for getting current value synchronously
   getSearchResultSnapshot() {
     return this.searchResultSubject.getValue();
+  }
+
+  // Optional: for getting current value synchronously
+  getCartSnapshot() {
+    return this.cartSubject.getValue();
   }
 }

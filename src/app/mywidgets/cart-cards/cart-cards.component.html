@@ -1,0 +1,15 @@
+<div class="d-flex flex-row p-2 px-lg-4 bg-white rounded align-items-center justify-content-between">
+    <input class="mx-1 mx-lg-4" type="checkbox" (change)="onCheckboxChange($event)" />
+    <div class="row align-items-start justify-content-start p-0 m-0">
+        <div class="col-12 col-lg-4">
+            <img class="rounded img-fluid" [src]="productData.images![0]"
+                style="background-color: white; width: 150px; height: 150px;" />
+        </div>
+        <div class="col-12 col-lg-8">
+            <p class="my-0">{{ productData.title }}</p>
+            <p class="my-0">PHP {{ productData.price }}</p>
+            <p class="my-1 text-secondary" style="font-size: 12px;">{{ productData.description?.substring(0, 75) }} ...
+            </p>
+        </div>
+    </div>
+</div>

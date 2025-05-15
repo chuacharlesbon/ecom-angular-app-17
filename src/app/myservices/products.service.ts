@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product, ProductsModel } from '../myinterfaces/products';
+import { CheckoutModel } from '../myinterfaces/checkout';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ProductsService {
   url = "https://dummyjson.com";
   defaultProductData: ProductsModel = {};
   defaultSingleProductData: Product = {};
+  defaultCheckoutModel: CheckoutModel = {};
 
   async getAllProducts(): Promise<ProductsModel> {
     try {
@@ -47,6 +49,34 @@ export class ProductsService {
       return await data.json();
     } catch (e) {
       return this.defaultSingleProductData;
+    }
+  }
+
+  async productCheckout(
+    amount: number,
+    externalId: string,
+    successRedirectUrl: string,
+    failureRedirectUrl: string,
+  ): Promise<CheckoutModel> {
+    try {
+      const data = await fetch(
+        'https://share-to-earn.vercel.app/api/v1/payments/createInvoice',
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount,
+            externalId,
+            successRedirectUrl,
+            failureRedirectUrl,
+          }),
+        }
+      );
+      return await data.json();
+    } catch (e) {
+      return this.defaultCheckoutModel;
     }
   }
 }

@@ -11,6 +11,11 @@
         <p class="my-2 text-white">{{ productData?.description }}</p>
         <p class="my-2 fs-4 text-white">PRICE</p>
         <p class="my-2 text-white">PHP {{ productData?.price }}</p>
+
+        <button class="d-block btn btn-warning my-4 px-4 fw-bold text-white"
+            (click)="addToCart(productData)">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </button>
     </div>
     <div class="col-12 col-lg-4 col-xxl-3 p-4">
         <p class="fs-3 text-warning">News Today</p>

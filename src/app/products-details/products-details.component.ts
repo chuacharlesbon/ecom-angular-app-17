@@ -8,6 +8,7 @@ import { routeNames } from '../app.routes';
 import { BlogsCardsComponent } from '../mywidgets/blogs-cards/blogs-cards.component';
 import { CommonModule } from '@angular/common';
 import { BlogsStore } from '../mystores/blogs.store';
+import { ProductsStore } from '../mystores/products.store';
 
 @Component({
   selector: 'app-products-details',
@@ -27,6 +28,17 @@ export class ProductsDetailsComponent {
   loadingBlog = this.blogsStore.loading$;
   blogsService: BlogsService = inject(BlogsService);
   blogsLink = `/${routeNames.blog.path}`;
+
+  // Product Cart
+  productsStore = inject(ProductsStore);
+
+  addToCart(item: Product | undefined){
+    console.log("add to cart");
+    if(item){
+      console.log("item value");
+      this.productsStore.addToCart(item);
+    }
+  }
 
   constructor() {
     const productId = parseInt(this.route.snapshot.params['id'], 10);
