@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Product } from '../myinterfaces/products';
 import { CheckoutModel } from '../myinterfaces/checkout';
 import { ProductsService } from '../myservices/products.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-cart',
@@ -25,6 +26,13 @@ export class CartComponent {
   loading: boolean = false;
   totalAmount = 0;
   private checkoutSub!: Subscription;
+  private modalRef: NgbModalRef | null = null;
+
+  constructor(private modalService: NgbModal) { }
+
+  openModal(content: any) {
+    this.modalRef = this.modalService.open(content, { backdrop: 'static', keyboard: false });
+  }
 
   ngAfterViewInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -50,7 +58,9 @@ export class CartComponent {
         "https://shopnetworkph-angular.vercel.app/checkout-success",
         "https://shopnetworkph-angular.vercel.app/checkout-failed",
       );
-  
+
+      this.modalRef?.close();
+
       if (result?.invoiceUrl) {
         window.location.href = result.invoiceUrl; // Navigate to external URL
       } else {
@@ -58,6 +68,7 @@ export class CartComponent {
         this.loading = false;
       }
     } catch (e) {
+      this.modalRef?.close();
       this.loading = false;
     }
   }
