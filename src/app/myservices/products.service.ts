@@ -31,6 +31,16 @@ export class ProductsService {
     }
   }
 
+  async productSearch(keyword: string): Promise<ProductsModel> {
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      const data = await fetch(`${this.url}/products/search?q=${keyword}`);
+      return await data.json();
+    } catch (e) {
+      return this.defaultProductData;
+    }
+  }
+
   async getProductById(id: number): Promise<Product> {
     try {
       const data = await fetch(`${this.url}/products/${id}`);
