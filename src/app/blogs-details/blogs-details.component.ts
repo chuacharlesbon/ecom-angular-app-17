@@ -28,13 +28,6 @@ export class BlogsDetailsComponent {
   blogsLink = `/${routeNames.blog.path}`;
 
   constructor() {
-    this.routeSub = this.route.params.subscribe(params => {
-      const blogId = parseInt(this.route.snapshot.params['id'], 10);
-      this.blogsService.getBlogById(blogId).then(blogData => {
-        this.blogData = blogData;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    });
     // const productId = parseInt(this.route.snapshot.params['id'], 10);
     // this.blogsService.getBlogById(productId).then(blogData => {
     //   this.blogData = blogData;
@@ -42,6 +35,14 @@ export class BlogsDetailsComponent {
   }
 
   async ngOnInit() {
+    this.routeSub = this.route.params.subscribe(params => {
+      const blogId = parseInt(this.route.snapshot.params['id'], 10);
+      this.blogsService.getBlogById(blogId).then(blogData => {
+        this.blogData = blogData;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    
     // Load Blogs if empty
     if (this.blogsStore.getBlogsSnapshot().length === 0) {
       this.blogsStore.loadBlogs();
