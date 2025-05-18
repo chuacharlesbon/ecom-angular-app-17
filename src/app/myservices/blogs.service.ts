@@ -26,6 +26,13 @@ export class BlogsService {
     try {
       await new Promise(resolve => setTimeout(resolve, 2000)); // simulate delay
       const res = this.http.get<BlogsModel[]>(`${this.url}/articles?page=1&per_page=10`);
+      const res2 = this.http.get<any[]>(
+        `http://localhost:4000/products`,
+        {
+          withCredentials: true
+        }
+      );
+      console.log("This is the res2", firstValueFrom(res2));
       return await firstValueFrom(res);
     } catch (e) {
       return [this.defaultBlogData];

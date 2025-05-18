@@ -24,6 +24,7 @@ export class CartComponent {
   checkout = this.productsStore.checkout$;
 
   // Checkout
+  email = '';
   loading: boolean = false;
   totalAmount = 0;
   private checkoutSub!: Subscription;
